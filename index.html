@@ -1156,6 +1156,68 @@
   }
   .standout .so-text strong { color: var(--text); font-weight: 600; }
 
+
+  /* ───────── PERIOD TOGGLE ───────── */
+  .period-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 28px 0 0;
+    padding: 0;
+  }
+  .period-toggle {
+    display: inline-flex;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 2px;
+  }
+  .pt-btn {
+    background: none;
+    border: none;
+    color: var(--text-mute);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 9px 22px;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: all 180ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pt-btn:hover { color: var(--text); }
+  .pt-btn.active {
+    background: var(--cranberry);
+    color: #FFFFFF;
+    box-shadow: 0 2px 12px rgba(238,28,37,0.32);
+  }
+  .pt-btn .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .pt-btn.active .dot { opacity: 1; }
+
+  /* Period content visibility - default to 30d */
+  .period-7d { display: none; }
+  body.show-7d .period-30d { display: none; }
+  body.show-7d .period-7d { display: block; }
+
+  /* For inline elements (in headers etc) */
+  span.period-30d, span.period-7d { display: none; }
+  span.period-30d { display: inline; }
+  body.show-7d span.period-30d { display: none; }
+  body.show-7d span.period-7d { display: inline; }
+
+  @media (max-width: 720px) {
+    .pt-btn { padding: 8px 16px; font-size: 11px; letter-spacing: 0.12em; }
+  }
+
   /* Responsive */
   @media (max-width: 1180px) {
     .kpi-row { grid-template-columns: repeat(2, 1fr); }
@@ -1220,6 +1282,18 @@
     </div>
   </header>
 
+  <!-- ───────── PERIOD TOGGLE ───────── -->
+  <div class="period-toggle-wrap">
+    <div class="period-toggle" role="tablist" aria-label="Reporting period">
+      <button class="pt-btn active" data-period="30d" aria-selected="true">
+        <span class="dot"></span>Last 30 days
+      </button>
+      <button class="pt-btn" data-period="7d" aria-selected="false">
+        <span class="dot"></span>Last 7 days
+      </button>
+    </div>
+  </div>
+
   <!-- ───────── TAB NAVIGATION ───────── -->
   <nav class="tab-nav" role="tablist">
     <button class="tab-btn active" role="tab" data-tab="tab-instagram" aria-selected="true">
@@ -1268,13 +1342,17 @@
     <div class="channel-header">
       <div class="ch-left">
         <h2>Instagram · <span style="color: var(--cranberry-2);">@cranberry.usa</span></h2>
-        <div class="ch-period">Reporting period: May 3 → June 1, 2026 · 30 days · 63 content pieces published</div>
+        <div class="ch-period">
+          <span class="period-30d">Reporting period: May 3 → June 1, 2026 · 30 days · 63 content pieces published</span>
+          <span class="period-7d">Reporting period: May 26 → June 1, 2026 · 7 days · 7 content pieces published</span>
+        </div>
       </div>
       <div class="ch-right">
         Source · <strong>Metricool exports</strong>
       </div>
     </div>
 
+    <div class="period-30d">
     <!-- ───────── KPI ROW ───────── -->
     <div class="section-title">
       <h2>The Topline</h2>
@@ -1577,6 +1655,181 @@
         but the brand voice content (Mayor Cranberry, "Welcome to Cran Land") is still showing up in the top 5. Recommendation: lock in a regular cadence with @the_guygienist, and start testing a second creator to de-risk the dependency.
       </p>
     </div>
+    </div>
+
+    <div class="period-7d">
+    <!-- ───────── KPI ROW (7-DAY) ───────── -->
+    <div class="section-title">
+      <h2>The Topline</h2>
+      <div class="rule"></div>
+      <span class="count">5 metrics · last 7 days</span>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi feature">
+        <span class="corner" style="color: var(--cranberry-2);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Content Views</div>
+        <div class="value mono">4,752</div>
+        <div class="delta">
+          <span>28% of monthly total</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Accounts Reached</div>
+        <div class="value mono">2,880</div>
+        <div class="delta">
+          <span>30% of monthly total</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Interactions</div>
+        <div class="value mono">103</div>
+        <div class="delta">
+          <span>23% of monthly total</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--edge);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Reels Engagement</div>
+        <div class="value mono" style="color: var(--edge);">3.46<span style="font-size:28px; opacity:0.7;">%</span></div>
+        <div class="delta">
+          <span>2 reels</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--edge);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Posts Published</div>
+        <div class="value mono">7</div>
+        <div class="delta">
+          <span>1 post · 2 reels · 4 stories</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP CONTENT 7D -->
+    <div class="section-title">
+      <h2>What's Working This Week</h2>
+      <div class="rule"></div>
+      <span class="count">3 published content pieces</span>
+    </div>
+
+    <div class="panel">
+      <div class="corner-bracket" style="color: var(--text-dim);">
+        <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+      </div>
+      <div class="panel-head">
+        <div>
+          <h3>This Week's Output</h3>
+          <div class="ph-sub">The "PPE matches" reel carried the week</div>
+        </div>
+        <div class="ph-figure">
+          <div class="num mono">4,610</div>
+          <div class="lbl">post + reel views</div>
+        </div>
+      </div>
+
+      <div class="li-posts">
+        <div class="li-post">
+          <div class="li-rank">01</div>
+          <div>
+            <div class="li-copy">"It's the little things… like when your PPE actually matches. 🧤😷 Compac gloves + Carbon masks = a great day"</div>
+            <div class="li-meta">May 30 · Reel · Creator collab · <span style="color: var(--edge);">97% of week's reel views</span></div>
+          </div>
+          <div class="li-imp"><div class="n">4,341</div><div class="l">Views</div></div>
+          <div class="li-er"><div class="n">3.45%</div><div class="l">ER</div></div>
+        </div>
+
+        <div class="li-post">
+          <div class="li-rank">02</div>
+          <div>
+            <div class="li-copy">"Not all latex is created equal. And when you rely on your gloves all day, the difference matters…"</div>
+            <div class="li-meta">May 28 · Carousel · Product thesis · 102 reach · 7 interactions</div>
+          </div>
+          <div class="li-imp"><div class="n">269</div><div class="l">Views</div></div>
+          <div class="li-er"><div class="n">6.86%</div><div class="l">ER</div></div>
+        </div>
+
+        <div class="li-post">
+          <div class="li-rank">03</div>
+          <div>
+            <div class="li-copy">"Thinking outside the box means rethinking the details that matter. 📦🧤 Compac is designed to fit…"</div>
+            <div class="li-meta">May 29 · Reel · Compac spotlight · 115 reach · 5 interactions</div>
+          </div>
+          <div class="li-imp"><div class="n">142</div><div class="l">Views</div></div>
+          <div class="li-er"><div class="n">3.48%</div><div class="l">ER</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORIES THIS WEEK -->
+    <div class="section-title">
+      <h2>Stories This Week</h2>
+      <div class="rule"></div>
+      <span class="count">4 stories · cadence dropped vs 30d</span>
+    </div>
+
+    <div class="panel">
+      <div class="corner-bracket" style="color: var(--text-dim);">
+        <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+      </div>
+      <div class="panel-head">
+        <div>
+          <h3>Stories Performance</h3>
+          <div class="ph-sub">small slice — only 4 of the month's 47 stories</div>
+        </div>
+      </div>
+
+      <div class="reels-grid">
+        <div class="reels-cell feature">
+          <div class="rl-lbl">Stories Published</div>
+          <div class="rl-val mono">4</div>
+          <div class="rl-sub" style="color: var(--cranberry-2);">vs 47 in full month</div>
+        </div>
+        <div class="reels-cell">
+          <div class="rl-lbl">Reach</div>
+          <div class="rl-val mono">171</div>
+          <div class="rl-sub">~43 / story</div>
+        </div>
+        <div class="reels-cell">
+          <div class="rl-lbl">Taps Forward</div>
+          <div class="rl-val mono">129</div>
+          <div class="rl-sub">strong active advance</div>
+        </div>
+        <div class="reels-cell">
+          <div class="rl-lbl">Replies</div>
+          <div class="rl-val mono">1</div>
+          <div class="rl-sub">1 active conversation</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; padding: 12px 14px; background: rgba(245,182,56,0.06); border-left: 2px solid var(--amber); border-radius: 0 4px 4px 0; font-size: 12px; color: var(--text-mute); line-height: 1.55;">
+        <strong style="color: var(--text);">Cadence note.</strong> Stories ran 47 pieces in the 30-day window but only 4 in the final week — a sharp drop-off after the CDA push. Worth considering a steady 8–10/week baseline.
+      </div>
+    </div>
+
+    <!-- INSIGHT 7D -->
+    <div class="insight" style="margin-top: 24px;">
+      <div class="ins-tag">★ This Week's Story</div>
+      <h3>A single reel did most of the work.</h3>
+      <p>
+        Of the 4,752 content views in the last 7 days, <strong>4,341 came from one reel</strong> — the May 30 @the_guygienist "PPE matches" piece. That's <strong>91% of the week's total views from one post</strong>.
+        On any normal week that's a red flag (dependency risk), but in context it's a confirmation: the second @the_guygienist collab worked just like the first. The May 28 "Not all latex" carousel did
+        solid B2B-style work too (269 views, 6.86% engagement). Recommendation: book the next creator collab before the cadence breaks; <strong>three weeks between @the_guygienist posts is fine, six weeks isn't</strong>.
+      </p>
+    </div>
+    </div>
 
   </div>
   <!-- ═══════════ END INSTAGRAM PANEL ═══════════ -->
@@ -1588,13 +1841,17 @@
     <div class="channel-header">
       <div class="ch-left">
         <h2>Facebook · <span style="color: var(--cranberry-2);">Cranberry</span></h2>
-        <div class="ch-period">Reporting period: May 3 → June 1, 2026 · 30 days · 6,027 followers</div>
+        <div class="ch-period">
+          <span class="period-30d">Reporting period: May 3 → June 1, 2026 · 30 days · 6,027 followers</span>
+          <span class="period-7d">Reporting period: May 26 → June 1, 2026 · 7 days · 6,027 followers</span>
+        </div>
       </div>
       <div class="ch-right">
         Source · <strong>Metricool exports</strong>
       </div>
     </div>
 
+    <div class="period-30d">
     <!-- Framing banner -->
     <div class="standout">
       <div class="so-num mono">30.0<span class="unit">%</span></div>
@@ -1851,6 +2108,145 @@
         more product-education content with clear CTAs to the link in bio. The 40 clicks this period show people will tap through when given a reason.
       </p>
     </div>
+    </div>
+
+    <div class="period-7d">
+    <!-- Framing banner -->
+    <div class="standout">
+      <div class="so-num mono">26.5<span class="unit">%</span></div>
+      <div class="so-text">
+        <div class="so-title">"Not all latex" Engagement Rate (7-day)</div>
+        The single best post of the week on Facebook is the new May 28 product-thesis carousel — <strong>13 clicks on 81 impressions</strong>, a <strong>16% click-through rate</strong>. Same content also hit <strong>55.6% CTR on LinkedIn</strong>, confirming evergreen product copy converts across B2B audiences.
+      </div>
+    </div>
+
+    <!-- KPI ROW 7D -->
+    <div class="section-title">
+      <h2>The Topline</h2>
+      <div class="rule"></div>
+      <span class="count">5 metrics · last 7 days</span>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi feature">
+        <span class="corner" style="color: var(--cranberry-2);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Total Followers</div>
+        <div class="value mono">6,027</div>
+        <div class="delta">
+          <span>essentially flat</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Content Views</div>
+        <div class="value mono">511</div>
+        <div class="delta">
+          <span>40% of monthly total</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Accounts Reached</div>
+        <div class="value mono">465</div>
+        <div class="delta">
+          <span>posts 49 · reels 416</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--edge);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Link Clicks</div>
+        <div class="value mono" style="color: var(--edge);">13</div>
+        <div class="delta">
+          <span class="delta-chip">16% CTR</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Posts Published</div>
+        <div class="value mono">6</div>
+        <div class="delta">
+          <span>1 post · 2 reels · 3 stories</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK CONTENT 7D -->
+    <div class="section-title">
+      <h2>This Week's Posts &amp; Reels</h2>
+      <div class="rule"></div>
+      <span class="count">3 pieces ranked by views</span>
+    </div>
+
+    <div class="panel">
+      <div class="corner-bracket" style="color: var(--text-dim);">
+        <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+      </div>
+      <div class="panel-head">
+        <div>
+          <h3>3 Pieces Published This Week</h3>
+          <div class="ph-sub">May 30 "PPE matches" is the clear top — 408 views, 35 min watch time</div>
+        </div>
+        <div class="ph-figure">
+          <div class="num mono">35.9<span class="unit">min</span></div>
+          <div class="lbl">total watch time</div>
+        </div>
+      </div>
+
+      <div class="li-posts">
+        <div class="li-post">
+          <div class="li-rank">01</div>
+          <div>
+            <div class="li-copy">"It's the little things… like when your PPE actually matches. 🧤😷 Compac gloves + Carbon masks = a great day"</div>
+            <div class="li-meta">May 30 · Reel · Creator collab · 5.13s avg watch · 393 reach</div>
+          </div>
+          <div class="li-imp"><div class="n">408</div><div class="l">Views</div></div>
+          <div class="li-er"><div class="n">0.76%</div><div class="l">ER</div></div>
+        </div>
+
+        <div class="li-post">
+          <div class="li-rank">02</div>
+          <div>
+            <div class="li-copy">"Not all latex is created equal. And when you rely on your gloves all day, the difference matters…"</div>
+            <div class="li-meta">May 28 · Carousel · Product thesis · 13 clicks · 49 reach · NEW</div>
+          </div>
+          <div class="li-imp"><div class="n">81</div><div class="l">Imp</div></div>
+          <div class="li-er"><div class="n">26.5%</div><div class="l">ER</div></div>
+        </div>
+
+        <div class="li-post">
+          <div class="li-rank">03</div>
+          <div>
+            <div class="li-copy">"Thinking outside the box means rethinking the details that matter. 📦🧤 Compac is designed to fit seamlessly…"</div>
+            <div class="li-meta">May 29 · Reel · Compac spotlight · 2.82s avg watch · 23 reach</div>
+          </div>
+          <div class="li-imp"><div class="n">22</div><div class="l">Views</div></div>
+          <div class="li-er"><div class="n">0%</div><div class="l">ER</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSIGHT 7D -->
+    <div class="insight" style="margin-top: 24px;">
+      <div class="ins-tag">★ This Week's Story</div>
+      <h3>Two posts, two different jobs.</h3>
+      <p>
+        The May 30 <em>"PPE matches"</em> reel is the <strong>scale piece</strong> (408 views, 35.9 min total watch time) — the same content also won on Instagram and TikTok. The May 28
+        <em>"Not all latex"</em> carousel is the <strong>conversion piece</strong> (13 clicks on 81 impressions = 16% CTR). Two posts, two different audiences, two different jobs done.
+        The May 29 Compac short underperformed (22 views, 2.82s avg watch) — too short to land. <strong>Recommendation</strong>: keep producing both creator-collab AND product-thesis content,
+        skip the in-between filler shorts.
+      </p>
+    </div>
+    </div>
 
   </div>
   <!-- ═══════════ END FACEBOOK PANEL ═══════════ -->
@@ -1862,13 +2258,17 @@
     <div class="channel-header">
       <div class="ch-left">
         <h2>LinkedIn · <span style="color: var(--cranberry-2);">Cranberry USA</span></h2>
-        <div class="ch-period">Reporting period: May 24 → May 31, 2026 · 8 days of available data only</div>
+        <div class="ch-period">
+          <span class="period-30d">Reporting period: May 24 → May 31, 2026 · 8 days of available data only</span>
+          <span class="period-7d">Reporting period: May 25 → May 31, 2026 · last 7 days</span>
+        </div>
       </div>
       <div class="ch-right">
         Source · <strong>LinkedIn native export</strong> &amp; in-app screenshot
       </div>
     </div>
 
+    <div class="period-30d">
     <!-- Data-limitation banner -->
     <div class="standout" style="border-left: 3px solid var(--amber);">
       <div class="so-num mono" style="color: var(--amber);">8<span class="unit">days</span></div>
@@ -2068,6 +2468,134 @@
         is being actively looked up, possibly by people who encountered the team at CDA. Next cycle: pull the full 30-day LinkedIn export, and consider a paid boost on the "Not all latex" carousel to scale the high CTR.
       </p>
     </div>
+    </div>
+
+    <div class="period-7d">
+    <!-- Data note banner -->
+    <div class="standout" style="border-left: 3px solid var(--amber);">
+      <div class="so-num mono" style="color: var(--amber);">7<span class="unit">days</span></div>
+      <div class="so-text">
+        <div class="so-title" style="color: var(--amber);">7-Day View ≈ Full Window</div>
+        LinkedIn data this cycle covers <strong>May 24–31</strong> only — basically a 7-day slice already. So the "Last 7 days" view here is essentially the same as the 30-day view. The numbers below cover <strong>May 25 → May 31</strong>.
+      </div>
+    </div>
+
+    <!-- KPI 7D -->
+    <div class="section-title">
+      <h2>The Topline</h2>
+      <div class="rule"></div>
+      <span class="count">all-organic · last 7 days</span>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi feature">
+        <span class="corner" style="color: var(--cranberry-2);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Followers</div>
+        <div class="value mono">35</div>
+        <div class="delta">
+          <span>up from 12 last cycle</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Impressions</div>
+        <div class="value mono">62</div>
+        <div class="delta">
+          <span>26 unique viewers</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--edge);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Engagement Rate</div>
+        <div class="value mono" style="color: var(--edge);">8.06<span style="font-size:28px; opacity:0.7;">%</span></div>
+        <div class="delta">
+          <span class="delta-chip">~4× LI avg</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Clicks</div>
+        <div class="value mono">5</div>
+        <div class="delta">
+          <span>8% CTR on impressions</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--edge);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Page Searches</div>
+        <div class="value mono">14</div>
+        <div class="delta">
+          <span class="delta-chip">↑ 16.7%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP POSTS -->
+    <div class="section-title">
+      <h2>Posts This Week</h2>
+      <div class="rule"></div>
+      <span class="count">2 posts · same as full window</span>
+    </div>
+
+    <div class="panel">
+      <div class="corner-bracket" style="color: var(--text-dim);">
+        <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+      </div>
+      <div class="panel-head">
+        <div>
+          <h3>What Posted</h3>
+          <div class="ph-sub">"Not all latex" hit 55.6% CTR — exceptional B2B conversion</div>
+        </div>
+      </div>
+
+      <div class="li-posts">
+        <div class="li-post">
+          <div class="li-rank">01</div>
+          <div>
+            <div class="li-copy">"Not all latex is created equal. And when you rely on your gloves all day, the difference matters…"</div>
+            <div class="li-meta">May 28 · Carousel · Product thesis · 5 clicks on 9 impressions</div>
+          </div>
+          <div class="li-imp"><div class="n">9</div><div class="l">Imp</div></div>
+          <div class="li-er"><div class="n">55.6%</div><div class="l">CTR</div></div>
+        </div>
+
+        <div class="li-post">
+          <div class="li-rank">02</div>
+          <div>
+            <div class="li-copy">"Thinking outside the box means rethinking the details that matter. Compac is designed to fit…"</div>
+            <div class="li-meta">May 29 · Video · Compac spotlight · 0 clicks</div>
+          </div>
+          <div class="li-imp"><div class="n">8</div><div class="l">Imp</div></div>
+          <div class="li-er"><div class="n">0%</div><div class="l">CTR</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; padding: 14px 16px; background: rgba(45,224,176,0.06); border-left: 2px solid var(--edge); border-radius: 0 4px 4px 0; font-size: 12px; color: var(--text-mute); line-height: 1.55;">
+        <strong style="color: var(--text);">Cross-channel pattern.</strong> The "Not all latex" post hit <strong>26.5% engagement on Facebook</strong> AND <strong>55.6% CTR on LinkedIn</strong>. Product-thesis content has clear pull on both B2B audiences.
+      </div>
+    </div>
+
+    <!-- INSIGHT 7D -->
+    <div class="insight" style="margin-top: 24px;">
+      <div class="ins-tag">★ This Week's Story</div>
+      <h3>Same data as full window — one carousel doing real work.</h3>
+      <p>
+        Because the LinkedIn export is only 8 days, the 7-day view here is nearly identical to the 30-day view. The headline is the same:
+        <strong>"Not all latex" hit a 55.6% CTR on LinkedIn this week</strong> (5 clicks on 9 impressions). The page now has <strong>35 followers</strong> (up from 12 visitors last cycle) and 14 page searches.
+        Next month: pull the full 30-day LinkedIn export, and consider a paid boost on this carousel to scale the high CTR before audiences forget it.
+      </p>
+    </div>
+    </div>
 
   </div>
   <!-- ═══════════ END LINKEDIN PANEL ═══════════ -->
@@ -2078,13 +2606,17 @@
     <div class="channel-header">
       <div class="ch-left">
         <h2>TikTok · <span style="color: var(--cranberry-2);">@cranberry.usa</span></h2>
-        <div class="ch-period">Reporting period: May 3 → June 1, 2026 · 30 days · post-breakout normalization</div>
+        <div class="ch-period">
+          <span class="period-30d">Reporting period: May 3 → June 1, 2026 · 30 days · post-breakout normalization</span>
+          <span class="period-7d">Reporting period: May 26 → June 1, 2026 · 7 days · 1 comment milestone</span>
+        </div>
       </div>
       <div class="ch-right">
         Source · <strong>Metricool export</strong>
       </div>
     </div>
 
+    <div class="period-30d">
     <!-- Framing banner -->
     <div class="standout">
       <div class="so-num mono">1<span class="unit"></span></div>
@@ -2368,6 +2900,130 @@
         more 7K-view algorithmic moments into actual conversations.
       </p>
     </div>
+    </div>
+
+    <div class="period-7d">
+    <!-- Framing banner 7d -->
+    <div class="standout">
+      <div class="so-num mono">1<span class="unit"></span></div>
+      <div class="so-text">
+        <div class="so-title">First-ever comment</div>
+        2 videos posted this week. The May 30 <em>"PPE matches"</em> reel pulled <strong>545 views, 8 likes, and TikTok's first-ever comment on a Cranberry post</strong>. The May 29 "Thinking outside the box" Compac short got 94 views and 0 engagement — the difference is the creator collab.
+      </div>
+    </div>
+
+    <!-- KPI 7D -->
+    <div class="section-title">
+      <h2>The Topline</h2>
+      <div class="rule"></div>
+      <span class="count">5 metrics · last 7 days</span>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi feature">
+        <span class="corner" style="color: var(--cranberry-2);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Video Views</div>
+        <div class="value mono">639</div>
+        <div class="delta">
+          <span>42% of monthly total</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Videos Posted</div>
+        <div class="value mono">2</div>
+        <div class="delta">
+          <span>vs 8 in full month</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Likes</div>
+        <div class="value mono">8</div>
+        <div class="delta">
+          <span>1.25% like rate</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--edge);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Comments</div>
+        <div class="value mono" style="color: var(--edge);">1</div>
+        <div class="delta">
+          <span class="delta-chip">first ever</span>
+        </div>
+      </div>
+      <div class="kpi">
+        <span class="corner" style="color: var(--text-dim);">
+          <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <div class="label">Shares</div>
+        <div class="value mono" style="color: var(--text-dim);">0</div>
+        <div class="delta">
+          <span>still none</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEOS 7D -->
+    <div class="section-title">
+      <h2>This Week's Videos</h2>
+      <div class="rule"></div>
+      <span class="count">2 videos posted</span>
+    </div>
+
+    <div class="panel">
+      <div class="corner-bracket" style="color: var(--text-dim);">
+        <svg viewBox="0 0 40 40"><path d="M14 6 L34 6 L34 26" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+      </div>
+      <div class="panel-head">
+        <div>
+          <h3>2 Videos · 639 Combined Views</h3>
+          <div class="ph-sub">May 30 creator collab carries 85% of week's views</div>
+        </div>
+      </div>
+
+      <div class="li-posts">
+        <div class="li-post">
+          <div class="li-rank">01</div>
+          <div>
+            <div class="li-copy">"It's the little things… like when your PPE actually matches. 🧤😷 Compac gloves + Carbon masks = a great day"</div>
+            <div class="li-meta">May 30 · 7s · Creator collab · <span style="color: var(--edge);">8 likes · 1 comment</span> — first-ever comment</div>
+          </div>
+          <div class="li-imp"><div class="n">545</div><div class="l">Views</div></div>
+          <div class="li-er"><div class="n">1.7%</div><div class="l">ER</div></div>
+        </div>
+
+        <div class="li-post">
+          <div class="li-rank">02</div>
+          <div>
+            <div class="li-copy">"Thinking outside the box means rethinking the details that matter. 📦🧤 Compac is designed to fit seamlessly…"</div>
+            <div class="li-meta">May 29 · 27s · Compac product spotlight · 0 likes</div>
+          </div>
+          <div class="li-imp"><div class="n">94</div><div class="l">Views</div></div>
+          <div class="li-er"><div class="n">0%</div><div class="l">ER</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSIGHT 7D -->
+    <div class="insight" style="margin-top: 24px;">
+      <div class="ins-tag">★ This Week's Story</div>
+      <h3>Two posts, one big lesson: creator collab is the lever.</h3>
+      <p>
+        Two videos this week. The May 30 <em>"PPE matches"</em> reel — featuring @the_guygienist — got <strong>545 views, 8 likes, and the platform's first-ever comment</strong>.
+        The May 29 Compac product spotlight, posted by the brand alone, got <strong>94 views and zero engagement</strong>. Same week, same audience, two very different outcomes.
+        The signal is unambiguous: <strong>creator content drives both reach AND conversation</strong>, brand-solo content drives neither. Recommendation: when there's bandwidth for only one TikTok post per week, make it a creator collab.
+      </p>
+    </div>
+    </div>
 
   </div>
   <!-- ═══════════ END TIKTOK PANEL ═══════════ -->
@@ -2398,6 +3054,22 @@
         });
         // Smooth scroll back to top of tabs on switch
         document.querySelector('.tab-nav').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  })();
+
+  // Period toggle (7-day vs 30-day)
+  (function() {
+    const periodButtons = document.querySelectorAll('.pt-btn');
+    periodButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const period = btn.dataset.period;
+        periodButtons.forEach(b => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        });
+        // Apply class on body to control visibility globally
+        document.body.classList.toggle('show-7d', period === '7d');
       });
     });
   })();
